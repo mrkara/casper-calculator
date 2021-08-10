@@ -80,11 +80,16 @@ export default class Home extends Component {
     let validatorsInfo = null;
     let circulating = 0;
     let totalSupply = 0;
-    await axios.post('https://api.blockshark.net:3399/getValidatorsInfo',{}).then(resp => {
-        validatorsInfo = resp.data;
-    });
-    await axios.post('https://api.blockshark.net:3399/getStatus',{}).then(resp => {
-        status = resp.data;
+
+    const requestOne = axios.post('https://api.blockshark.net:3399/getValidatorsInfo');
+    const requestTwo = axios.post('https://api.blockshark.net:3399/getStatus');
+
+    await axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
+      validatorsInfo = responses[0].data;
+      status = responses[1].data;
+      // use/access the results
+    })).catch(errors => {
+      // react on errors.
     });
 
     if (validatorsInfo != null){
