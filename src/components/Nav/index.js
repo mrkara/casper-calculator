@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import './Nav.scss';
-import Utils from "../../utils";
-import Swal from "sweetalert2";
 export default class Nav extends Component {
   constructor(props) {
     super(props);

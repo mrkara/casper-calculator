@@ -19,9 +19,9 @@
   "author": "NAD0128668",
   "license": "ISC",
   "bugs": {
-    "url": "https://www.blockshark.net/"
+    "url": "https://www.blockshark.net/casper-profit-calculator"
   },
-  "homepage": "https://www.blockshark.net/",
+  "homepage": "https://www.blockshark.net/casper-profit-calculator",
   "dependencies": {
     "axios": "^0.21.1",
     "big-integer": "^1.6.48",

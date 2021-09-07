@@ -110,7 +110,6 @@ export default class Account extends Component {
         let transfers = [];
         console.log('https://event-store-api-clarity-mainnet.make.services/accounts/' + accountHash + '/transfers?page=1&limit=10');
         await axios.get('https://event-store-api-clarity-mainnet.make.services/accounts/' + accountHash + '/transfers?page=1&limit=10').then(resp => {
-            //console.log(resp);
             transfers = resp.data.data;
         });
         transfers.sort(function (a, b) {
@@ -169,7 +168,7 @@ export default class Account extends Component {
     render() {
         return (
             <div>
-                <section className="site-section bg-light" id="contact-section">
+                <section className="site-section bg-light bg-gradient" id="contact-section">
                     <div className="container" style={{marginTop: "50px"}}>
                         <div className="row mb-3">
                             <div className="col-12 text-center">
