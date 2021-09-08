@@ -122,7 +122,7 @@ export default class Home extends Component {
                 let min_rate = (validators_data.length > 0) ? validators_data[0].currentRewardRatio : 0;
                 let max_rate = 0;
                 validators_data.map((item) => {
-                   if (item.currentRewardRatio > max_rate && item.delegation_rate < 100) {
+                   if (item.currentRewardRatio > max_rate && item.delegation_rate < 100 && item.uptime > 0) {
                        max_rate = item.currentRewardRatio;
                    }else if (item.currentRewardRatio < min_rate) {
                        min_rate = item.currentRewardRatio;
@@ -135,7 +135,7 @@ export default class Home extends Component {
                     max_rate: max_rate,
                     max_daily: this.getDaily(max_rate * this.state.user_staked_amount),
                     max_monthly: this.getMonthly(max_rate * this.state.user_staked_amount),
-                    max_apy: this.getApy(max_rate * this.state.user_staked_amount),
+                    max_apy: this.getApy(max_rate),
                 });
             }
             this.setState({
@@ -194,7 +194,7 @@ export default class Home extends Component {
             min_monthly:  this.getMonthly(this.state.min_rate * e.target.value),
             max_monthly: this.getMonthly(this.state.max_rate * e.target.value),
             min_apy:  this.getApy(this.state.min_rate * e.target.value),
-            max_apy: this.getApy(this.state.max_rate * e.target.value),
+            max_apy: this.getApy(this.state.max_rate),
         });
     }
 
@@ -648,9 +648,9 @@ export default class Home extends Component {
                                                         <Td>{this.calculateTotalStake(validator.staked_amount, validator.delegators)}</Td>
                                                         <Td><span
                                                             style={{color: validator.delegation_rate >= 30 ? "red" : validator.delegation_rate >= 15 ? "orange" : "green"}}>{validator.delegation_rate} %</span></Td>
-                                                        <Td>{validator.delegation_rate === 100 ? 0 : this.getDaily(validator.currentRewardRatio * this.state.user_staked_amount)} CSPR</Td>
-                                                        <Td>{validator.delegation_rate === 100 ? 0 : this.getMonthly(validator.currentRewardRatio * this.state.user_staked_amount)} CSPR</Td>
-                                                        <Td>{validator.delegation_rate === 100 ? 0 : this.getApy(validator.currentRewardRatio)} %</Td>
+                                                        <Td>{(validator.delegation_rate === 100 || validator.uptime === 0 ) ? 0 : this.getDaily(validator.currentRewardRatio * this.state.user_staked_amount)} CSPR</Td>
+                                                        <Td>{(validator.delegation_rate === 100 || validator.uptime === 0 ) ? 0 : this.getMonthly(validator.currentRewardRatio * this.state.user_staked_amount)} CSPR</Td>
+                                                        <Td>{(validator.delegation_rate === 100 || validator.uptime === 0 ) ? 0 : this.getApy(validator.currentRewardRatio)} %</Td>
                                                         <Td><a href={void (0)} className="btn btn-primary"
                                                                onClick={() => this.selectValidator(validator.public_key)}>More
                                                             Info</a></Td>
